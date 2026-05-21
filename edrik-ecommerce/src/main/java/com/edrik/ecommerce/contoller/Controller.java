@@ -2,7 +2,6 @@ package com.edrik.ecommerce.contoller;
 
 import com.edrik.ecommerce.Service.OrderService;
 import com.edrik.ecommerce.model.Order;
-import com.edrik.ecommerce.model.UpdateOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +39,9 @@ public class Controller {
     public List<Order> getOrder(){
         return service.getOrders();
     }
-    @PutMapping("/update-order")
-    public Order updateOrder(@RequestBody UpdateOrder order) {
-        return service.updateOrder(order);
+    @PutMapping("/update-order/{id}")
+    public Order updateOrder(@PathVariable UUID id,@RequestBody Order order) {
+        return service.updateOrder(id,order);
     }
     @PatchMapping("/patch-order/{id}")
     public Order patchOrder(@PathVariable UUID id,@RequestBody Order order){

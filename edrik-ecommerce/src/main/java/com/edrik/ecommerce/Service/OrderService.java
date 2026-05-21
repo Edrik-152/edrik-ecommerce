@@ -4,7 +4,6 @@ package com.edrik.ecommerce.Service;
 import com.edrik.ecommerce.dao.OrderDao;
 import com.edrik.ecommerce.model.Order;
 import com.edrik.ecommerce.model.OrderStatus;
-import com.edrik.ecommerce.model.UpdateOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -52,20 +51,13 @@ public class OrderService {
             return orderDao.getOrders();
         }
 
-    public Order updateOrder(UpdateOrder request) {
-            Order order= getOrderById(request.getId());
-            order.setOrderName(request.getOrderName());
-            order.setPrice(request.getPrice());
-            order.setCreatedBy(request.getCreatedBy());
-            return orderDao.updateOrder(order);
-    }
 
     public Order patchOrder(Order update,UUID id) {
             Order order = getOrderById(id);
             if(update.getOrderName()!=null){
                 order.setOrderName(update.getOrderName());
             }
-            if(update.getPrice()!=0){
+            if(update.getPrice()!=null){
                 order.setPrice(update.getPrice());
             }
             return orderDao.patchOrder(order);
@@ -74,5 +66,13 @@ public class OrderService {
     public String deleteOrder(UUID id) {
             Order order = getOrderById(id);
             return orderDao.deleteOrder(order);
+    }
+
+    public Order updateOrder(UUID id, Order update) {
+            Order order=getOrderById(id);
+            order.setOrderName(update.getOrderName());
+            order.setPrice(update.getPrice());
+            order.setCreatedBy(update.getCreatedBy());
+            return orderDao.updateOrder(order);
     }
 }
