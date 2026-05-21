@@ -48,5 +48,9 @@ public class Controller {
     public Order patchOrder(@PathVariable UUID id,@RequestBody Order order){
         return service.patchOrder(order,id);
     }
+    @DeleteMapping("/delete-order/{id}")
+    public String deleteOrder(@PathVariable UUID id){
+        return service.deleteOrder(id);
+    }
 }
 

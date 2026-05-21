@@ -61,7 +61,7 @@ public class OrderService {
     }
 
     public Order patchOrder(Order update,UUID id) {
-            Order order =getOrderById(id);
+            Order order = getOrderById(id);
             if(update.getOrderName()!=null){
                 order.setOrderName(update.getOrderName());
             }
@@ -69,5 +69,10 @@ public class OrderService {
                 order.setPrice(update.getPrice());
             }
             return orderDao.patchOrder(order);
+    }
+
+    public String deleteOrder(UUID id) {
+            Order order = getOrderById(id);
+            return orderDao.deleteOrder(order);
     }
 }

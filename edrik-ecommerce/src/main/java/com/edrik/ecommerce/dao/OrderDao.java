@@ -40,7 +40,7 @@ public class OrderDao {
     }
 
     public Order updateOrder(Order order) {
-        if(check(order.getOrderId())){
+        if(!check(order.getOrderId())){
             map.put(order.getOrderId(),order);
             return map.get(order.getOrderId());
         }
@@ -48,7 +48,18 @@ public class OrderDao {
     }
 
     public Order patchOrder(Order order) {
-        map.put(order.getOrderId(),order);
-        return map.get(order.getOrderId());
+        if(!check(order.getOrderId())){
+            map.put(order.getOrderId(),order);
+            return map.get(order.getOrderId());
+        }
+        return null;
+    }
+
+    public String deleteOrder(Order order){
+        if(!check(order.getOrderId())){
+            map.remove(order.getOrderId());
+            return "Removed";
+        }
+        return "Incorrect id";
     }
 }
