@@ -17,14 +17,6 @@ public class Controller {
 
     private final OrderService service;
 
-
-    @GetMapping("/name")
-    public String get(){
-        return "edrik";
-    }
-
-
-
     @PostMapping("/create-order")
     public Order createOrder(@RequestBody Order order, @RequestHeader HttpHeaders headers){
 
