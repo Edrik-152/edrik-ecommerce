@@ -40,10 +40,13 @@ public class Controller {
     public List<Order> getOrder(){
         return service.getOrders();
     }
-    @PutMapping("/update-orders")
-    public Order updateOrder(@RequestBody UpdateOrder order){
+    @PutMapping("/update-order")
+    public Order updateOrder(@RequestBody UpdateOrder order) {
         return service.updateOrder(order);
     }
-
+    @PatchMapping("/patch-order/{id}")
+    public Order patchOrder(@PathVariable UUID id,@RequestBody Order order){
+        return service.patchOrder(order,id);
+    }
 }
 

@@ -46,4 +46,9 @@ public class OrderDao {
         }
         return null;
     }
+
+    public Order patchOrder(Order order) {
+        map.put(order.getOrderId(),order);
+        return map.get(order.getOrderId());
+    }
 }

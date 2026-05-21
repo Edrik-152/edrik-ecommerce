@@ -59,4 +59,15 @@ public class OrderService {
             order.setCreatedBy(request.getCreatedBy());
             return orderDao.updateOrder(order);
     }
+
+    public Order patchOrder(Order update,UUID id) {
+            Order order =getOrderById(id);
+            if(update.getOrderName()!=null){
+                order.setOrderName(update.getOrderName());
+            }
+            if(update.getPrice()!=0){
+                order.setPrice(update.getPrice());
+            }
+            return orderDao.patchOrder(order);
+    }
 }
