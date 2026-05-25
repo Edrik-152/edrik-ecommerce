@@ -1,5 +1,6 @@
 package com.edrik.ecommerce.contoller;
 
+import com.edrik.ecommerce.Dto.OrderDto;
 import com.edrik.ecommerce.Service.OrderService;
 import com.edrik.ecommerce.model.Order;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,10 @@ public class Controller {
     @DeleteMapping("/delete-order/{id}")
     public String deleteOrder(@PathVariable UUID id){
         return service.deleteOrder(id);
+    }
+    @GetMapping("/getOrderNamePrice/{id}")
+    public OrderDto getOrderNamePrice(@PathVariable UUID id){
+        return service.getOrderNamePrice(id);
     }
 }
 

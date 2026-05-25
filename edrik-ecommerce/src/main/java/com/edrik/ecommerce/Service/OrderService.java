@@ -1,8 +1,10 @@
 package com.edrik.ecommerce.Service;
 
 
+import com.edrik.ecommerce.Dto.OrderDto;
 import com.edrik.ecommerce.dao.OrderDao;
 import com.edrik.ecommerce.exception.OrderNotFoundException;
+import com.edrik.ecommerce.mapper.OrderMapper;
 import com.edrik.ecommerce.model.Order;
 import com.edrik.ecommerce.model.OrderStatus;
 import lombok.RequiredArgsConstructor;
@@ -88,5 +90,13 @@ public class OrderService {
             order.setPrice(update.getPrice());
             order.setCreatedBy(update.getCreatedBy());
             return orderDao.updateOrder(order);
+    }
+
+    public OrderDto getOrderNamePrice(UUID id) {
+            Order order =orderDao.getOrderById(id);
+            if(order==null){
+                throw new OrderNotFoundException("OrderNotFound with id:"+id);
+            }
+            return OrderMapper.toDto(order);
     }
 }
