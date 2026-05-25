@@ -2,6 +2,7 @@ package com.edrik.ecommerce.Service;
 
 
 import com.edrik.ecommerce.dao.OrderDao;
+import com.edrik.ecommerce.exception.OrderNotFoundException;
 import com.edrik.ecommerce.model.Order;
 import com.edrik.ecommerce.model.OrderStatus;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,11 @@ public class OrderService {
         }
 
         public Order getOrderById(UUID id){
-            return orderDao.getOrderById(id);
+            Order order=orderDao.getOrderById(id);
+            if(order==null){
+                throw new OrderNotFoundException("OrderNotFound with id:"+id);
+            }
+            return order;
         }
 
         public List<Order> getOrders() {
@@ -54,6 +59,9 @@ public class OrderService {
 
     public Order patchOrder(Order update,UUID id) {
             Order order = getOrderById(id);
+            if(order==null){
+                throw new OrderNotFoundException("OrderNotFound with id:"+id);
+            }
             if(update.getOrderName()!=null){
                 order.setOrderName(update.getOrderName());
             }
@@ -65,11 +73,17 @@ public class OrderService {
 
     public String deleteOrder(UUID id) {
             Order order = getOrderById(id);
+        if(order==null){
+            throw new OrderNotFoundException("OrderNotFound with id:"+id);
+        }
             return orderDao.deleteOrder(order);
     }
 
     public Order updateOrder(UUID id, Order update) {
             Order order=getOrderById(id);
+        if(order==null){
+            throw new OrderNotFoundException("OrderNotFound with id:"+id);
+        }
             order.setOrderName(update.getOrderName());
             order.setPrice(update.getPrice());
             order.setCreatedBy(update.getCreatedBy());
